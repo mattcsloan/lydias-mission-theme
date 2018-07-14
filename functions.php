@@ -1,6 +1,16 @@
 <?php
 	function load_theme_styles() {
-	    wp_enqueue_style( 'si-style', get_template_directory_uri() . '/style.css', array(), '1.0.4' );
+	    wp_enqueue_style( 'lm-style', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version') );
+	    wp_enqueue_style( 'lm-responsive',
+	        get_stylesheet_directory_uri() . '/styles/responsive.css',
+	        array( 'lm-style' ),
+	        wp_get_theme()->get('Version')
+	    );
+	    wp_enqueue_style( 'icomoon',
+	        get_stylesheet_directory_uri() . '/fonts/icomoon/icomoon.css',
+	        array( 'lm-style', 'lm-responsive' ),
+	        1.0.0
+	    );
 	}
 	add_action( 'wp_enqueue_scripts', 'load_theme_styles' );
 
@@ -8,7 +18,7 @@
 	function load_my_scripts() {
 		wp_enqueue_script('jquery');
 		$templatedir = get_bloginfo('template_directory');
-		wp_register_script('myscript', $templatedir.'/scripts/interaction.js', array('jquery'), '1.0.6', true);
+		wp_register_script('myscript', $templatedir.'/scripts/interaction.js', array('jquery'), '1.0.0', true);
 		wp_enqueue_script('myscript');
 	}
 	add_action('init', 'load_my_scripts');
@@ -19,7 +29,7 @@
 	// Get the page number
 	function get_page_number() {
 	    if ( get_query_var('paged') ) {
-	        print ' | ' . __( 'Page ' , 'si-modern') . get_query_var('paged');
+	        print ' | ' . __( 'Page ' , 'lydias-mission-theme') . get_query_var('paged');
 	    }
 	} // end get_page_number
 
